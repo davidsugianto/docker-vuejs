@@ -1,0 +1,26 @@
+---
+
+version: '3.1'
+
+networks:
+  app-tier:
+    driver: bridge
+
+services:
+
+  httpd:
+    container_name: nginx
+    image: bitnami/nginx:${NGINX_VERSION}-${OS_VERSION}
+    user: root:root
+    restart: always
+    environment:
+      - 'TZ=${TIMEZONE}'
+    networks:
+      - app-tier
+    ports:
+      - '80:8080'
+      - '443:8443'
+    volumes:
+      - ./config/nginx/vhost:/opt/bitnami/nginx/conf/vhosts:ro
+      - ./logs/nginx/${NGINX_VERSION}:/opt/bitnami/nginx/logs:rw
+      - ./public-html:/app:rw

@@ -1,1 +1,1 @@
-# docker-vuejs-pm2
+# docker-nuxtjs-pm2
